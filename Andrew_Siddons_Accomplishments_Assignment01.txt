@@ -1,0 +1,15 @@
+Accomplishments:
+   - Rigidbody2D Ball: Gravity and Reliable Collision.
+   - Playfield Boundaries: Left, Right, Top, and Bottom colliders.
+   - Death Zone: Ball Respawns after a short delay.
+   - Bumpers: Applies impulse and changes color on hit.
+   - Bumpers Random Color Change: Bumper has a Random Color bool that enables this.
+   - Drop Targets: Drop targets disable when collided, and reset when all are down after a short delay.
+   - Portal Gates: Ball is teleported to another portal, preserving velocity.
+   - Freeze field: The ball stops for a short time, before unfreezing.
+   - Configurable playfield behaviour: 
+	- Duration of the Freeze Zone is configurable.
+	- Bumper Random Color is a configurable value.
+	- Force of a Bumper is configurable.
+	- Portals destination Portal is configurable.
+   - Scene is organized and objects are set as prefabs to be reused later.
