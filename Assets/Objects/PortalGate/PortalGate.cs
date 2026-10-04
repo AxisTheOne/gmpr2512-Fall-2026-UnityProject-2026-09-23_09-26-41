@@ -7,13 +7,11 @@ public class PortalGate : MonoBehaviour
 
     public float debounce;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         debounce = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         debounce--;
@@ -40,12 +38,11 @@ public class PortalGate : MonoBehaviour
 
     private Vector2 RotateVector(Vector2 v, float degrees)
     {
+        //Copied from my Math and Physics Unity assignment :}
+        //Most of the time the Vector is rotated accordingly.
         float radians = degrees * Mathf.Deg2Rad;
         float sin = Mathf.Sin(radians);
         float cos = Mathf.Cos(radians);
-        return new Vector2(
-            v.x * cos - v.y * sin,
-            v.x * sin + v.y * cos
-        );
+        return new Vector2(v.x * cos - v.y * sin, v.x * sin + v.y * cos);
     }
 }

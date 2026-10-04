@@ -5,22 +5,20 @@ public class FreezeZone : MonoBehaviour
     [SerializeField] float freezeDuration = 100f;
     Rigidbody2D ball;
 
-    private Vector3 returnVelocity;
+    private Vector2 returnVelocity;
 
     private float delay;
     private float unfreezeTime;
     private bool frozen;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         delay = 0;
         unfreezeTime = 20;
         frozen = false;
-        returnVelocity = new Vector3(0, 0, 0);
+        returnVelocity = new Vector2(0, 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(delay > 0)

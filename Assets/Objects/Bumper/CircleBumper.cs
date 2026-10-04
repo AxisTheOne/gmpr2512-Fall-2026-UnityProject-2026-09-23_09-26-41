@@ -4,13 +4,14 @@ public class CircleBumper : MonoBehaviour
 {
     [SerializeField] SpriteRenderer rend;
     [SerializeField] private UnityEngine.Rendering.Universal.Light2D myLight;
+    [SerializeField] float bumperForce = 30f;
     [SerializeField] bool randomColor;
+    Rigidbody2D ball;
 
     float timeStamp, delayTime;
     Color defaultColor;
     Vector2 defaultSize;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         delayTime = 0.1f;
@@ -18,7 +19,6 @@ public class CircleBumper : MonoBehaviour
         defaultSize = rend.transform.localScale;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Time.time > timeStamp + delayTime)
@@ -31,20 +31,28 @@ public class CircleBumper : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        timeStamp = Time.time;
-        rend.color = Color.white;
-        rend.transform.localScale = defaultSize * 1.5f;
-        myLight.color = Color.white;
-        Color setRandomColor = new Color(
-            Random.Range(0f, 1f),
-            Random.Range(0f, 1f),
-            Random.Range(0f, 1f),
-            1f
-        );
-        if (randomColor)
+        ball = collision.gameObject.GetComponentInParent<Rigidbody2D>();
+        if(ball != null)
         {
-            rend.color = setRandomColor;
-            myLight.color = Color.Lerp(myLight.color, setRandomColor, 0.02f);
+            timeStamp = Time.time;
+            rend.color = Color.white;
+            rend.transform.localScale = defaultSize * 1.5f;
+            myLight.color = Color.white;
+
+            Vector3 bounceDirection = (ball.gameObject.transform.position - transform.position).normalized;
+            ball.AddForce(bounceDirection * bumperForce, ForceMode2D.Impulse);
+
+            Color setRandomColor = new Color(
+                Random.Range(0f, 1f),
+                Random.Range(0f, 1f),
+                Random.Range(0f, 1f),
+                1f
+            );
+            if (randomColor)
+            {
+                rend.color = setRandomColor;
+                myLight.color = Color.Lerp(myLight.color, setRandomColor, 0.02f);
+            }
         }
     }
 }
