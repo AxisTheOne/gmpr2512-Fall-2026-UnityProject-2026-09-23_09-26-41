@@ -3,7 +3,7 @@ using UnityEngine;
 public class ColliderDisable : MonoBehaviour
 {
     [SerializeField] SpriteRenderer rend;
-    [SerializeField] Collider2D collider;
+    [SerializeField] Collider2D collider1;
     [SerializeField] Collider2D collider2;
     [SerializeField] Collider2D collider3;
     [SerializeField] Collider2D collider4;
@@ -24,7 +24,7 @@ public class ColliderDisable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((collider.enabled == false && collider2.enabled == false && collider3.enabled == false && collider4.enabled == false) || (timeLapse >= 50)) {
+        if ((collider1.enabled == false && collider2.enabled == false && collider3.enabled == false && collider4.enabled == false) || (timeLapse >= 50)) {
             timeLapse += 1;
             myLight.color = Color.yellow;
             if (timeLapse >= 100) {
@@ -32,7 +32,7 @@ public class ColliderDisable : MonoBehaviour
                 myLight.color = Color.yellow;
                 if (pause >= 20)
                 {
-                    collider.enabled = true;
+                    collider1.enabled = true;
                     myLight.color = defaultColor;
                     timeLapse = 0;
                     pause = 0;
@@ -43,7 +43,7 @@ public class ColliderDisable : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        collider.enabled = false;
+        collider1.enabled = false;
         myLight.color = Color.red;
     }
 }

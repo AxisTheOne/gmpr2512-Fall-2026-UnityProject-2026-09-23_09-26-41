@@ -4,25 +4,47 @@ using UnityEngine.InputSystem;
 public class FlipperCode : MonoBehaviour
 {
     [SerializeField] bool rightFlipper;
-    [SerializeField] Rigidbody2D mySelf;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private HingeJoint2D hinge;
+    
     void Start()
     {
-        
+        hinge = GetComponent<HingeJoint2D>();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        if (Keyboard.current.dKey.wasPressedThisFrame && rightFlipper)
+        if (rightFlipper)
         {
-            mySelf.AddTorque(50f, ForceMode2D.Force);
+            if (Keyboard.current.dKey.isPressed)
+            {
+                JointMotor2D motor = hinge.motor;
+                motor.motorSpeed = 1000;
+                hinge.motor = motor;
+            }
+
+            else
+            {
+                JointMotor2D motor = hinge.motor;
+                motor.motorSpeed = -1000;
+                hinge.motor = motor;
+            }
         }
 
-        if (Keyboard.current.aKey.wasPressedThisFrame && rightFlipper == false)
+        else
         {
-            
+            if (Keyboard.current.aKey.isPressed)
+            {
+                JointMotor2D motor = hinge.motor;
+                motor.motorSpeed = -1000;
+                hinge.motor = motor;
+            }
+
+            else
+            {
+                JointMotor2D motor = hinge.motor;
+                motor.motorSpeed = 1000;
+                hinge.motor = motor;
+            }
         }
     }
 }

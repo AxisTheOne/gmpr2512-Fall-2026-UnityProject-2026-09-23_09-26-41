@@ -30,7 +30,7 @@ public class LockShooter : MonoBehaviour
             if (initialLock >= 100) {
                 myLight.color = Color.red;
                 shootTimer += 1;
-                if (shootTimer >= 250 && Keyboard.current.spaceKey.wasPressedThisFrame)
+                if (shootTimer >= 250 && Keyboard.current.spaceKey.isPressed)
                 {
                     ball.linearVelocity = mySelf.gameObject.transform.right * 32f;
                     ballIn = false;
