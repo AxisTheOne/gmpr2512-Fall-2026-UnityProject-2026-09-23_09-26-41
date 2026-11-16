@@ -12,4 +12,4 @@ EditorBuildSettings:
     path: Assets/Scenes/PhysicsPlayground.unity
     guid: c6b36b2023339294491e4b5958de2212
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 349c1f6e763169646ad56af239663979, type: 3}
