@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alien
   fireStamp: 0
-  bulletSpeed: 5
+  bulletSpeed: 7.91
   ammo: 1
   minFire: 0.5
   maxFire: 3

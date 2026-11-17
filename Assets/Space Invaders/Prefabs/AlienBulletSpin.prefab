@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6333943392620056909}
   - component: {fileID: 7466280654620164767}
-  - component: {fileID: 9011314101671161386}
   - component: {fileID: 3425887668040655622}
+  - component: {fileID: 9011314101671161386}
   m_Layer: 11
   m_Name: AlienBulletSpin
-  m_TagString: ShipBullet
+  m_TagString: AlienBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,21 +62,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &9011314101671161386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4266183599063459633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6dc8ae78cb69c44183e99d79b94a3c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  spins: 1
-  lifeTime: 8
-  spinSpeed: 1
 --- !u!70 &3425887668040655622
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -90,10 +75,10 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4608
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2560
+    m_Bits: 3072
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -114,6 +99,21 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0000132620335, y: -0.0020646006}
   m_Size: {x: 0.1036018, y: 0.41505936}
   m_Direction: 0
+--- !u!114 &9011314101671161386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4266183599063459633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6dc8ae78cb69c44183e99d79b94a3c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bullet
+  spins: 1
+  lifeTime: 8
+  spinSpeed: 250
 --- !u!1 &4861804402571760294
 GameObject:
   m_ObjectHideFlags: 0

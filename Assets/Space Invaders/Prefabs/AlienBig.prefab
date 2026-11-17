@@ -122,10 +122,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alien
   fireStamp: 0
-  bulletSpeed: 5
+  bulletSpeed: 4
   ammo: 1
-  minFire: 0.5
-  maxFire: 1
+  minFire: 0.44
+  maxFire: 0.68
   bullets: []
   bullet: {fileID: 4266183599063459633, guid: 6a59969435668d04498727236c080766, type: 3}
   bottomRow: 0

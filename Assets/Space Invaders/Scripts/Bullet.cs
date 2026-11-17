@@ -7,24 +7,23 @@ public class Bullet : MonoBehaviour
 
     bool isActive = false;
     float lifeTimer = 0;
-    void Start()
-    {
-
-    }
 
     void Update()
     {
+        // For the Spinning Variant
         if (spins)
         {
-            transform.Rotate(0, 0, spinSpeed);
+            transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
         }
 
+        // Reset timer if activated
         if (gameObject.activeSelf && !isActive)
         {
             isActive = true;
             lifeTimer = 0;
         }
 
+        // Deactivate after some time (if for some reason the bullet escapes the Play Area)
         lifeTimer += Time.deltaTime;
         if (lifeTimer >= lifeTime)
         {
@@ -35,6 +34,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Deactivate on touch
         gameObject.SetActive(false);
         isActive = false;
     }

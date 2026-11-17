@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   spins: 1
   lifeTime: 8
-  spinSpeed: 1
+  spinSpeed: 200
 --- !u!70 &6220753279075019063
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

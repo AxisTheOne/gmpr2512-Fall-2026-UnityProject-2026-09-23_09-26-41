@@ -7,14 +7,19 @@ public class Alien : MonoBehaviour
     [SerializeField] List<GameObject> bullets;
     [SerializeField] GameObject bullet;
 
-    public bool bottomRow = false;
-
+    LayerMask layerMask;
     Vector2 weaponLocation;
     float fireTime = 0f;
+    bool bottomRow = false;
 
     void Start()
     {
+        // Layermask for Raycasting, and timers
+        layerMask = LayerMask.GetMask("Alien");
+        fireStamp = Time.time;
         fireTime = Random.Range(minFire, maxFire);
+
+        // Create Bullet Instances
         for (int i = 0; i < ammo; i++)
         {
             bullets.Add(Instantiate(bullet, Vector3.zero, Quaternion.identity));
@@ -24,8 +29,9 @@ public class Alien : MonoBehaviour
 
     void Update()
     {
+        // Check if this Alien has anything blocking its fire
         bottomRow = false;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + Vector3.down, Vector2.down, 3.0f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + Vector3.down, Vector2.down, 3.0f, layerMask);
         if (hit.collider == null)
         {
             bottomRow = true;
@@ -33,12 +39,15 @@ public class Alien : MonoBehaviour
 
         if (Time.time > fireStamp + fireTime)
         {
+            // Set timers
             fireStamp = Time.time;
             fireTime = Random.Range(minFire, maxFire);
 
+            // Shoot Location and Found
             bool found = !bottomRow;
             weaponLocation = transform.position + Vector3.down;
 
+            // Find an Available Bullet and Fire
             for (int i = 0; i < bullets.Count && !found; i++)
             {
                 if (bullets[i].activeSelf == false)
@@ -52,6 +61,15 @@ public class Alien : MonoBehaviour
                     bullets[i].GetComponent<Rigidbody2D>().linearVelocity = -bullets[i].transform.up * bulletSpeed;
                 }
             }
+        }
+    }
+
+    void OnDestroy()
+    {
+        // Clean up Projectiles to prevent stackup
+        for (int i = 0; i < bullets.Count; i++)
+        {
+            Destroy(bullets[i]);
         }
     }
 }

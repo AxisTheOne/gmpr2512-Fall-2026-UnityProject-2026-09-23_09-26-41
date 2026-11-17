@@ -12,29 +12,26 @@ public class ShipMovement : MonoBehaviour
     [SerializeField] int ammo = 5;
     [SerializeField] List<GameObject> bullets, bullets2;
     [SerializeField] GameObject topBoundry, bottomBoundry, leftBoundry, rightBoundry;
-
     [SerializeField] GameObject weaponLocation, bullet, bullet2;
+
     Vector2 moveDirection;
+
     void Awake()
     {
+        // Input Actions
         moveAction = InputSystem.actions.FindAction("Ship/Move");
         rotateAction = InputSystem.actions.FindAction("Ship/Rotate");
         fireAction = InputSystem.actions.FindAction("Ship/Fire");
         fire2Action = InputSystem.actions.FindAction("Ship/Fire2");
-
-        shipHeight = GetComponent<Collider2D>().bounds.extents.y;
-        shipWidth = GetComponent<Collider2D>().bounds.extents.x;
     }
 
     private void Start()
     {
+        // Create Bullet Instances
         for (int i = 0; i < ammo; i++)
         {
             bullets.Add(Instantiate(bullet, Vector3.zero, Quaternion.identity));
             bullets[i].SetActive(false);
-        }
-        for (int i = 0; i < ammo; i++)
-        {
             bullets2.Add(Instantiate(bullet2, Vector3.zero, Quaternion.identity));
             bullets2[i].SetActive(false);
         }
@@ -42,11 +39,13 @@ public class ShipMovement : MonoBehaviour
 
     private void OnEnable()
     {
+        // Enable Input
         moveAction.Enable();
         rotateAction.Enable();
         fireAction.Enable();
         fire2Action.Enable();
 
+        // Link events to the fire
         fireAction.performed += FireButtonPressed;
         fireAction.canceled += ButtonReleased;
         fire2Action.performed += Fire2ButtonPressed;
@@ -55,6 +54,7 @@ public class ShipMovement : MonoBehaviour
 
     private void OnDisable()
     {
+        // Disable Actions
         moveAction.Disable();
         rotateAction.Disable();
         fireAction.Disable();
@@ -67,18 +67,20 @@ public class ShipMovement : MonoBehaviour
         #region Movement
         moveDirection = moveAction.ReadValue<Vector2>();
 
+        // Can't move Up/Down in Space Invaders
+        moveDirection = new Vector2(moveDirection.x, 0);
         #endregion
 
         #region Borders
+        // Vertical Borders
         if (transform.position.y < bottomBoundry.transform.position.y + shipHeight / 2)
             transform.position = new Vector3(transform.position.x, bottomBoundry.transform.position.y + shipHeight / 2, transform.position.z);
-
         if (transform.position.y > topBoundry.transform.position.y - shipHeight / 2)
             transform.position = new Vector3(transform.position.x, topBoundry.transform.position.y - shipHeight / 2, transform.position.z);
 
+        // Horizontal Borders
         if (transform.position.x > rightBoundry.transform.position.x - shipWidth / 2)
             transform.position = new Vector3(rightBoundry.transform.position.x - shipWidth / 2, transform.position.y, transform.position.z);
-
         if (transform.position.x < leftBoundry.transform.position.x + shipWidth / 2)
             transform.position = new Vector3(leftBoundry.transform.position.x + shipWidth / 2, transform.position.y, transform.position.z);
         #endregion
@@ -102,17 +104,20 @@ public class ShipMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Move the Ship
         transform.Translate(moveDirection.normalized * movementSpeed * Time.deltaTime, Space.World);
     }
 
     void FireButtonPressed(InputAction.CallbackContext context)
     {
+        // Primary Bullet Fire
         if (Time.time > timeStamp + fireRate)
         {
+            // Timestamp
             timeStamp = Time.time;
-
             bool found = false;
 
+            // Find an available bullet to shoot
             for (int i = 0; i < bullets.Count && !found; i++)
             {
                 if (bullets[i].activeSelf == false)
@@ -131,12 +136,13 @@ public class ShipMovement : MonoBehaviour
 
     void Fire2ButtonPressed(InputAction.CallbackContext context)
     {
+        // Secondary Bullet Fire
         if (Time.time > timeStamp + fireRate)
         {
             timeStamp = Time.time;
-
             bool found = false;
 
+            // Find an available bullet to shoot
             for (int i = 0; i < bullets2.Count && !found; i++)
             {
                 if (bullets2[i].activeSelf == false)
@@ -155,13 +161,13 @@ public class ShipMovement : MonoBehaviour
 
     void ButtonReleased(InputAction.CallbackContext context)
     {
-
+        // Do nothing :)
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag == "AlienBullet" ||
-            collision.transform.tag == "Alien")
+        // Only deactivate if we were hit by an Alien
+        if (collision.transform.tag == "AlienBullet" || collision.transform.tag == "Alien")
         {
             gameObject.SetActive(false);
         }

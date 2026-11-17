@@ -4,14 +4,17 @@ using UnityEngine;
 public class FleetManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> fleets, activeFleets;
+    [SerializeField] float fleetSpacing = 1.3f;
 
     void Start()
     {
+        // Create Initial Fleets
         SpawnFleet();
     }
 
     void Update()
     {
+        // Determine if there are still Aliens alive
         bool alienAlive = false;
         for (int i = 0; i < activeFleets.Count; i++)
         {
@@ -23,13 +26,28 @@ public class FleetManager : MonoBehaviour
             }
         }
 
+        // If all the Aliens are dead, spawn a new fleet
         if (!alienAlive)
+        {
+            // Destroy and Clear the old fleet
+            for (int i = 0; i < activeFleets.Count; i++)
+            {
+                Destroy(activeFleets[i]);
+            }
+            activeFleets.Clear();
+
+            // Spawn a new
             SpawnFleet();
+        }
     }
 
     void SpawnFleet()
     {
-        int rand = Random.Range(0, fleets.Count);
-        activeFleets.Add(Instantiate(fleets[rand], transform.position, Quaternion.identity));
+        // Spawn two Alien fleets
+        for (int i = 0; i < 2; i ++)
+        {
+            int rand = Random.Range(0, fleets.Count);
+            activeFleets.Add(Instantiate(fleets[rand], transform.position + Vector3.down * (i * fleetSpacing), Quaternion.identity));
+        }
     }
 }
